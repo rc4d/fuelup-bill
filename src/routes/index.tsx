@@ -200,31 +200,43 @@ function Index() {
                     width: 90, height: 90,
                     border: "2.5px solid #111", borderRadius: "50%",
                     margin: "0 auto",
-                    display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
+                    <div style={{
+                      position: "absolute",
+                      width: 80, height: 80,
+                      border: "1px solid #111", borderRadius: "50%",
+                      top: "50%", left: "50%",
+                      transform: "translate(-50%, -50%)",
+                    }} />
                     <span style={{
+                      position: "absolute",
+                      top: "50%", left: "50%",
+                      transform: "translate(-50%, -50%)",
                       background: "#111", color: "#fff",
-                      padding: "3px 8px",
-                      fontSize: 13, fontWeight: 700,
+                      width: 78, height: 18,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: 12, fontWeight: 700,
                       fontFamily: "system-ui, sans-serif",
                       whiteSpace: "nowrap",
+                      borderRadius: "5%",
                     }}>इंडियनऑयल</span>
                   </div>
-                  <div style={{ fontWeight: 800, fontSize: 20, marginTop: 8, fontFamily: "system-ui, sans-serif", color: "#111" }}>
+                  <div style={{ fontWeight: 650, fontSize: 20, marginTop: 8, fontFamily: "system-ui, sans-serif", color: "#111" }}>
                     IndianOil
                   </div>
-                  <div style={{ fontWeight: 700, fontSize: 14, marginTop: 6 }}>Welcomes You</div>
+                  <div style={{ fontWeight: 550, fontSize: 20, marginTop: 6 }}>Welcomes You</div>
                 </div>
 
 
                 <Line label="Tel. No." value="" />
+                <div style={{ height: 14 }} />
                 <Line label="Inv.No" value={meta.invNo} />
                 <Line label="FCC ID" value={meta.fccId} />
                 <Line label="FIP No" value={meta.fipNo} />
                 <Line label="Nozzle No" value={meta.nozzleNo} />
                 <Line label="Product" value={fuel} />
 
-                <div style={{ height: 8 }} />
+                <div style={{ height: 10 }} />
                 <Line label="Preset Type" value="Volume" />
                 <Line label="Rate(Rs/L)" value={r.toFixed(2)} alignRight />
                 <Line label="Volume(L)" value={q.toFixed(2).padStart(8, "0")} alignRight />
@@ -232,21 +244,21 @@ function Index() {
                 <Line label="Atot" value={meta.atot} />
                 <Line label="Vtot" value={meta.vtot} />
 
-                <div style={{ height: 8 }} />
+                <div style={{ height: 10 }} />
                 <Line label="Vehicle No" value="Not Entered" />
                 <Line label="Mobile No" value="Not Entered" />
 
-                <div style={{ height: 8 }} />
+                <div style={{ height: 10 }} />
                 <Line label="Date" value={formatDateShort(date)} />
                 <Line label="Time" value={time} />
 
-                <div style={{ height: 12 }} />
+                <div style={{ height: 18 }} />
                 <div>Thank You! Please Visit</div>
                 <div>Again..</div>
 
-                <div style={{ height: 14 }} />
+                {/* <div style={{ height: 14 }} />
                 <div>Printed on:</div>
-                <div>{formatDateShort(date)} {time}</div>
+                <div>{formatDateShort(date)} {time}</div> */}
               </div>
             )}
           </div>
