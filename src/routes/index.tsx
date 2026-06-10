@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import jsPDF from "jspdf";
-import { toPng } from "html-to-image";
+import { toJpeg } from "html-to-image";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -83,8 +83,9 @@ function Index() {
     if (!billRef.current) return;
     const el = billRef.current;
     try {
-      const dataUrl = await toPng(el, {
-        pixelRatio: 3,
+      const dataUrl = await toJpeg(el, {
+        pixelRatio: 2,
+        quality: 0.88,
         backgroundColor: "#ffffff",
         cacheBust: true,
       });
@@ -93,8 +94,8 @@ function Index() {
       await new Promise((res) => { imgEl.onload = res; });
       const widthMM = 80;
       const heightMM = (imgEl.height / imgEl.width) * widthMM;
-      const pdf = new jsPDF({ unit: "mm", format: [widthMM, heightMM], orientation: "portrait" });
-      pdf.addImage(dataUrl, "PNG", 0, 0, widthMM, heightMM);
+      const pdf = new jsPDF({ unit: "mm", format: [widthMM, heightMM], orientation: "portrait", compress: true });
+      pdf.addImage(dataUrl, "JPEG", 0, 0, widthMM, heightMM);
       const _d = new Date();
       const _months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
       const _fname = `${pad(_d.getDate(),2)}${_months[_d.getMonth()]}_${_d.getFullYear()}_${meta?.invNo ?? "receipt"}_FuelBill.pdf`;
