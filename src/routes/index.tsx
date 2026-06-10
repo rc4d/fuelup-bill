@@ -225,7 +225,7 @@ function Index() {
                   <div style={{ fontWeight: 650, fontSize: 20, marginTop: 8, fontFamily: "system-ui, sans-serif", color: "#111" }}>
                     IndianOil
                   </div>
-                  <div style={{ fontWeight: 550, fontSize: 20, marginTop: 6 }}>Welcomes You</div>
+                  <div style={{ fontWeight: 400, fontSize: 20, marginTop: 6 }}>Welcomes You</div>
                 </div>
 
 
