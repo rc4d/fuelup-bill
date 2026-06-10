@@ -95,7 +95,10 @@ function Index() {
       const heightMM = (imgEl.height / imgEl.width) * widthMM;
       const pdf = new jsPDF({ unit: "mm", format: [widthMM, heightMM], orientation: "portrait" });
       pdf.addImage(dataUrl, "PNG", 0, 0, widthMM, heightMM);
-      pdf.save(`IndianOil_Receipt_${meta?.invNo ?? "receipt"}.pdf`);
+      const _d = new Date();
+      const _months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      const _fname = `${pad(_d.getDate(),2)}${_months[_d.getMonth()]}_${_d.getFullYear()}_${meta?.invNo ?? "receipt"}_FuelBill.pdf`;
+      pdf.save(_fname);
     } catch (err) {
       console.error("PDF generation failed:", err);
       alert("Failed to generate PDF. Please try again.");
