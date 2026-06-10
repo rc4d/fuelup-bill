@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import { toPng } from "html-to-image";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -82,14 +82,24 @@ function Index() {
   async function downloadPDF() {
     if (!billRef.current) return;
     const el = billRef.current;
-    const canvas = await html2canvas(el, { scale: 3, backgroundColor: "#ffffff" });
-    const img = canvas.toDataURL("image/png");
-    // Thermal receipt: 80mm wide
-    const widthMM = 80;
-    const heightMM = (canvas.height / canvas.width) * widthMM;
-    const pdf = new jsPDF({ unit: "mm", format: [widthMM, heightMM], orientation: "portrait" });
-    pdf.addImage(img, "PNG", 0, 0, widthMM, heightMM);
-    pdf.save(`IndianOil_Receipt_${meta?.invNo ?? "receipt"}.pdf`);
+    try {
+      const dataUrl = await toPng(el, {
+        pixelRatio: 3,
+        backgroundColor: "#ffffff",
+        cacheBust: true,
+      });
+      const imgEl = new Image();
+      imgEl.src = dataUrl;
+      await new Promise((res) => { imgEl.onload = res; });
+      const widthMM = 80;
+      const heightMM = (imgEl.height / imgEl.width) * widthMM;
+      const pdf = new jsPDF({ unit: "mm", format: [widthMM, heightMM], orientation: "portrait" });
+      pdf.addImage(dataUrl, "PNG", 0, 0, widthMM, heightMM);
+      pdf.save(`IndianOil_Receipt_${meta?.invNo ?? "receipt"}.pdf`);
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+      alert("Failed to generate PDF. Please try again.");
+    }
   }
 
   const regenerate = () => setMeta(genMeta(date, time));
