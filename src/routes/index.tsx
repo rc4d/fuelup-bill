@@ -95,7 +95,10 @@ function Index() {
       const heightMM = (imgEl.height / imgEl.width) * widthMM;
       const pdf = new jsPDF({ unit: "mm", format: [widthMM, heightMM], orientation: "portrait" });
       pdf.addImage(dataUrl, "PNG", 0, 0, widthMM, heightMM);
-      pdf.save(`IndianOil_Receipt_${meta?.invNo ?? "receipt"}.pdf`);
+      const _d = new Date();
+      const _months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      const _fname = `${pad(_d.getDate(),2)}${_months[_d.getMonth()]}_${_d.getFullYear()}_${meta?.invNo ?? "receipt"}_FuelBill.pdf`;
+      pdf.save(_fname);
     } catch (err) {
       console.error("PDF generation failed:", err);
       alert("Failed to generate PDF. Please try again.");
@@ -191,21 +194,28 @@ function Index() {
                 }}
               >
                 {/* Logo */}
-                <div style={{ textAlign: "center", marginBottom: 6 }}>
+                <div style={{ textAlign: "center", marginBottom: 10 }}>
                   <div style={{
-                    display: "inline-block", border: "1.5px solid #111", borderRadius: "50%",
-                    width: 56, height: 56, lineHeight: "56px", textAlign: "center",
+                    position: "relative",
+                    width: 90, height: 90,
+                    border: "2.5px solid #111", borderRadius: "50%",
+                    margin: "0 auto",
+                    display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
                     <span style={{
-                      background: "#111", color: "#fff", padding: "2px 6px",
-                      fontSize: 10, fontWeight: 700, fontFamily: "system-ui, sans-serif",
+                      background: "#111", color: "#fff",
+                      padding: "3px 8px",
+                      fontSize: 13, fontWeight: 700,
+                      fontFamily: "system-ui, sans-serif",
+                      whiteSpace: "nowrap",
                     }}>इंडियनऑयल</span>
                   </div>
-                  <div style={{ fontWeight: 700, fontSize: 16, marginTop: 4, fontFamily: "system-ui, sans-serif" }}>
+                  <div style={{ fontWeight: 800, fontSize: 20, marginTop: 8, fontFamily: "system-ui, sans-serif", color: "#111" }}>
                     IndianOil
                   </div>
-                  <div style={{ fontWeight: 700, fontSize: 14, marginTop: 2 }}>Welcomes You</div>
+                  <div style={{ fontWeight: 700, fontSize: 14, marginTop: 6 }}>Welcomes You</div>
                 </div>
+
 
                 <Line label="Tel. No." value="" />
                 <Line label="Inv.No" value={meta.invNo} />
