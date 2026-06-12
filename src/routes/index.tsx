@@ -96,9 +96,9 @@ function Index() {
       const heightMM = (imgEl.height / imgEl.width) * widthMM;
       const pdf = new jsPDF({ unit: "mm", format: [widthMM, heightMM], orientation: "portrait", compress: true });
       pdf.addImage(dataUrl, "JPEG", 0, 0, widthMM, heightMM);
-      const [y, m, day] = date.split("-").map(Number);
+      const [, m, day] = date.split("-").map(Number);
       const _months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-      const _fname = `${pad(day, 2)}${_months[m - 1]}_${y}_${meta?.invNo ?? "receipt"}_FuelBill.pdf`;
+      const _fname = `${pad(day, 2)}${_months[m - 1]}_${total.toFixed(0)}_${meta?.invNo ?? "receipt"}_FuelBill.pdf`;
       pdf.save(_fname);
     } catch (err) {
       console.error("PDF generation failed:", err);
