@@ -96,9 +96,9 @@ function Index() {
       const heightMM = (imgEl.height / imgEl.width) * widthMM;
       const pdf = new jsPDF({ unit: "mm", format: [widthMM, heightMM], orientation: "portrait", compress: true });
       pdf.addImage(dataUrl, "JPEG", 0, 0, widthMM, heightMM);
-      const _d = new Date();
+      const [y, m, day] = date.split("-").map(Number);
       const _months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-      const _fname = `${pad(_d.getDate(),2)}${_months[_d.getMonth()]}_${_d.getFullYear()}_${meta?.invNo ?? "receipt"}_FuelBill.pdf`;
+      const _fname = `${pad(day, 2)}${_months[m - 1]}_${y}_${meta?.invNo ?? "receipt"}_FuelBill.pdf`;
       pdf.save(_fname);
     } catch (err) {
       console.error("PDF generation failed:", err);
@@ -257,9 +257,9 @@ function Index() {
                 <div>Thank You! Please Visit</div>
                 <div>Again..</div>
 
-                {/* <div style={{ height: 14 }} />
+              <div style={{ height: 14 }} />
                 <div>Printed on:</div>
-                <div>{formatDateShort(date)} {time}</div> */}
+                <div>{formatDateShort(date)} {time}</div>
               </div>
             )}
           </div>
