@@ -98,7 +98,7 @@ function Index() {
       pdf.addImage(dataUrl, "JPEG", 0, 0, widthMM, heightMM);
       const [, m, day] = date.split("-").map(Number);
       const _months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-      const _fname = `${pad(day, 2)}${_months[m - 1]}_₹${Math.floor(total)}_${meta?.invNo ?? "receipt"}_FuelBill.pdf`;
+      const _fname = `${pad(day, 2)}${_months[m - 1]}_${Math.floor(total)}_${meta?.invNo ?? "receipt"}_FuelBill.pdf`;
       pdf.save(_fname);
     } catch (err) {
       console.error("PDF generation failed:", err);
